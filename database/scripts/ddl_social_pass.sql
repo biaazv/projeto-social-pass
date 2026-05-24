@@ -1,3 +1,5 @@
+-- COMANDO PARA EXECUTAR NO TERMINAL:
+-- mysql -u root -p < ddl_social_pass.sql
 -- -----------------------------------------------------
 -- Criação do Banco de Dados - SocialPass (Baseado na Imagem)
 -- -----------------------------------------------------
