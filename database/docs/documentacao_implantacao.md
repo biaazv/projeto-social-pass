@@ -258,7 +258,10 @@ CREATE INDEX idx_checkin_data ON Checkin (data_hora);
    ```
 
 2. **Criar e Inicializar a Estrutura Física do Banco de Dados:**
-Execute o utilitário de linha de comando do MySQL apontando para o arquivo DDL. Substitua root pelo seu usuário do banco de dados:
+Execute o utilitário de linha de comando do MySQL apontando para o arquivo DDL.
+Em sequência, para popular o banco de dados, executar o segundo comando.
+ Substitua root pelo seu usuário do banco de dados:
     ```bash
     mysql -u root -p < ddl_social_pass.sql
+    mysql -u root -p < popula_banco.sql
     ```
