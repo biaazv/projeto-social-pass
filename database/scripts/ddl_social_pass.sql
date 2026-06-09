@@ -3,22 +3,26 @@
 -- -----------------------------------------------------
 -- Criação do Banco de Dados - SocialPass (Baseado na Imagem)
 -- -----------------------------------------------------
-CREATE DATABASE IF NOT EXISTS socialpass_v2_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE socialpass_v2_db;
+CREATE DATABASE IF NOT EXISTS gympass_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE gympass_db;
 
 -- 1. Tabela: Usuario
 CREATE TABLE IF NOT EXISTS Usuario (
     id_usuario INT AUTO_INCREMENT,
-    nome VARCHAR(255) NOT NULL,
+    nome_completo VARCHAR(255) NOT NULL,
+    nome_usuario VARCHAR(50) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    senha VARCHAR(100) NOT NULL,
     cpf VARCHAR(14) NOT NULL,
     data_nascimento DATE NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    endereco VARCHAR(255),
-    bairro VARCHAR(100),
-    status VARCHAR(50),
-    data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
+    telefone VARCHAR(20),
+    status_conta VARCHAR(30) NOT NULL,
+    data_cadastro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    data_atualizacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT pk_usuario PRIMARY KEY (id_usuario),
-    CONSTRAINT uq_usuario_cpf UNIQUE (cpf)
+    CONSTRAINT uq_usuario_cpf UNIQUE (cpf),
+    CONSTRAINT uq_usuario_email UNIQUE (email),
+    CONSTRAINT uq_usuario_nome_usuario UNIQUE (nome_usuario)
 ) ENGINE=InnoDB;
 
 -- 2. Tabela: Dependentes (Nome mapeado na imagem como "Dependente")
@@ -26,9 +30,8 @@ CREATE TABLE IF NOT EXISTS Dependente (
     id_dependente INT AUTO_INCREMENT,
     id_usuario INT NOT NULL,
     nome VARCHAR(255) NOT NULL,
-    cpf VARCHAR(14) NOT NULL,
+    cpf VARCHAR(14),
     data_nascimento DATE NOT NULL,
-    email VARCHAR(255) NOT NULL,
     parentesco VARCHAR(100),
     status VARCHAR(50),
     CONSTRAINT pk_dependente PRIMARY KEY (id_dependente),
@@ -143,5 +146,4 @@ CREATE TABLE IF NOT EXISTS Checkin (
 -- Índices Otimizadores para Coleção de Métricas e Geolocalização
 -- -----------------------------------------------------
 CREATE INDEX idx_academia_geo ON Academia (latitude, longitude);
-CREATE INDEX idx_usuario_bairro ON Usuario (bairro);
 CREATE INDEX idx_checkin_data ON Checkin (data_hora);

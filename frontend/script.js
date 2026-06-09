@@ -1,5 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Configuração da URL do Backend
+    // Se estiver em produção, pode ser necessário ajustar essa lógica ou usar variáveis de ambiente no build
     var API_BASE_URL = 'http://localhost:8080';
+
+    // Se o frontend for servido pelo Spring Boot (mesma origem), usa o origin atual
+    if (window.location.port === '8080') {
+        API_BASE_URL = window.location.origin;
+    }
+
     var toastContainer = document.getElementById('toastContainer');
 
     // Mascara de CPF
