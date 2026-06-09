@@ -1,0 +1,234 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #d6e6f5;
+}
+
+/* HEADER - CENTRALIZADO */
+.header {
+    background-color: #004A8D;
+    padding: 10px 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    width: 100%;
+}
+
+.header-logo img {
+    height: 70px;
+    width: auto;
+    display: block;
+}
+
+.header-divider {
+    width: 2px;
+    height: 55px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.header-text {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.5px;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    flex: 1;
+    width: 100%;
+    background-color: #c8dff2;
+    background-image: url('./background-rio.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 20px;
+    position: relative;
+    overflow:hidden;
+}
+
+.main-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #b8d4e8 0%, #d6e6f5 50%, #c5dced 100%);
+    z-index: -1;
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 25px 35px;
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    z-index: 1;
+    height:auto;
+    max-height:none;
+    overflow-y:visible;
+}
+.card-header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.card-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.card-logo-icon {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.card-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2e7bc4;
+}
+
+.card-subtitle {
+    font-size: 16px;
+    color: #666666;
+    margin-top: 5px;
+}
+
+/* FORM */
+.form-group {
+    margin-bottom: 12px;
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a4b8c;
+    margin-bottom: 6px;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #999999;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px 12px 10px 42px;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333333;
+    background-color: #ffffff;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.form-input::placeholder {
+    color: #999999;
+}
+
+.form-input:focus {
+    border-color: #2e7bc4;
+}
+
+/* BUTTON */
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background-color: #1a3a5c;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #0f2a45;
+}
+
+/* FOOTER */
+.footer {
+    background-color: #1a3a5c;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.footer-text {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+/* RESPONSIVO */
+@media screen and (max-width: 600px) {
+    .header {
+        padding: 15px 20px;
+    }
+
+    .header-logo img {
+        height: 50px;
+    }
+
+    .header-text {
+        font-size: 16px;
+    }
+
+    .card {
+        padding: 30px 25px;
+        margin: 20px;
+    }
+
+    .card-title {
+        font-size: 26px;
+    }
+}

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Pass - Cadastro de Usuário</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-logo">
+            <img src="./logo-rio.png" alt="Prefeitura do Rio">
+        </div>
+        <div class="header-divider"></div>
+        <div class="header-text">
+            ASSISTÊNCIA<br>SOCIAL
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-logo">
+                    <img src="./logo-social-pass.png" alt="Social Pass" class="card-logo-icon">
+                    <span class="card-title">Social Pass</span>
+                </div>
+                <p class="card-subtitle">Cadastro de Usuário</p>
+            </div>
+
+            <form id="cadastroForm">
+                
+                <!-- Nome Completo -->
+                <div class="form-group">
+                    <label class="form-label">Nome Completo</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">&#128100;</span>
+                        <input type="text" class="form-input" name="nomeCompleto" placeholder="Digite seu nome completo" required>
+                    </div>
+                </div>
+
+                <!-- Nome de Usuario -->
+                <div class="form-group">
+                    <label class="form-label">Nome de Usuário</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">&#64;</span>
+                        <input type="text" class="form-input" name="nomeUsuario" placeholder="Digite seu nome de usuário" required>
+                    </div>
+                </div>
+
+                <!-- CPF -->
+                <div class="form-group">
+                    <label class="form-label">CPF</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">&#128196;</span>
+                        <input type="text" class="form-input" id="cpfInput" name="cpf" placeholder="000.000.000-00" maxlength="14" required>
+                    </div>
+                </div>
+
+                <!-- Data de Nascimento -->
+                <div class="form-group">
+                    <label class="form-label">Data de Nascimento</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">&#128197;</span>
+                        <input type="date" class="form-input" name="nascimento" required>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">&#9993;</span>
+                        <input type="email" class="form-input" name="email" placeholder="Digite seu email" required>
+                    </div>
+                </div>
+
+                <!-- Telefone -->
+                <div class="form-group">
+                    <label class="form-label">Telefone</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">&#128222;</span>
+                        <input type="text" class="form-input" id="telefoneInput" name="telefone" placeholder="(00) 00000-0000" maxlength="15" required>
+                    </div>
+                </div>
+
+                <!-- Senha -->
+                <div class="form-group">
+                    <label class="form-label">Senha</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">&#128274;</span>
+                        <input type="password" class="form-input" name="senha" placeholder="Digite sua senha" required>
+                    </div>
+                </div>
+
+                <!-- Botao Cadastrar -->
+                <button type="submit" class="btn-submit">
+                    <span>&#128100;</span> Cadastrar
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p class="footer-text">JUNTOS POR UMA CIDADE MAIS ATIVA E SAUDÁVEL.</p>
+    </footer>
+
+    <script src="./script.js"></script>
+</body>
+</html>
