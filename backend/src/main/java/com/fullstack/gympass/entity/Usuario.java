@@ -42,12 +42,6 @@ public class Usuario {
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;
 
-    @Column(length = 255)
-    private String endereco;
-
-    @Column(length = 100)
-    private String bairro;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "status_conta", nullable = false, length = 30)
     private StatusConta statusConta;
