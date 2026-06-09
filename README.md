@@ -1,6 +1,7 @@
 # SocialPass - Plataforma de Democratização da Atividade Física 🏋️‍♂️🏊‍♀️
 
-O **SocialPass** é uma solução de impacto social baseada no modelo corporativo do Wellhub/Totalpass, porém voltada exclusivamente para a população hipossuficiente do município do Rio de Janeiro cadastrada no **CadÚnico**.
+
+O **SocialPass** é uma solução de impacto social baseada no modelo corporativo do Wellhub/Totalpass, porém voltada exclusivamente para a população hipossuficiente do município do Rio de Janeiro cadastrada no **CadÚnico**. 
 
 O projeto visa transformar a prática esportiva numa ferramenta de saúde preventiva e inclusão social, conectando cidadãos de áreas vulneráveis a vagas ociosas em academias e centros esportivos parceiros.
 
