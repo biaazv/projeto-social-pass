@@ -9,16 +9,22 @@ USE socialpass_v2_db;
 -- 1. Tabela: Usuario
 CREATE TABLE IF NOT EXISTS Usuario (
     id_usuario INT AUTO_INCREMENT,
-    nome VARCHAR(255) NOT NULL,
+    nome_completo VARCHAR(255) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    nome_usuario VARCHAR(50) NOT NULL,
+    senha VARCHAR(100) NOT NULL,
+    telefone VARCHAR(20),
     cpf VARCHAR(14) NOT NULL,
     data_nascimento DATE NOT NULL,
-    email VARCHAR(255) NOT NULL,
     endereco VARCHAR(255),
     bairro VARCHAR(100),
-    status VARCHAR(50),
-    data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status_conta VARCHAR(30) NOT NULL,
+    data_cadastro DATETIME NOT NULL,
+    data_atualizacao DATETIME NOT NULL,
     CONSTRAINT pk_usuario PRIMARY KEY (id_usuario),
-    CONSTRAINT uq_usuario_cpf UNIQUE (cpf)
+    CONSTRAINT uq_usuario_cpf UNIQUE (cpf),
+    CONSTRAINT uq_usuario_email UNIQUE (email),
+    CONSTRAINT uq_usuario_nome UNIQUE (nome_usuario)
 ) ENGINE=InnoDB;
 
 -- 2. Tabela: Dependentes (Nome mapeado na imagem como "Dependente")
