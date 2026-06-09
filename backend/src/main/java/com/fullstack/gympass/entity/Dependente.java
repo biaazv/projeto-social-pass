@@ -24,9 +24,6 @@ public class Dependente {
     @Column(nullable = false, length = 255)
     private String nome;
 
-    @Column(length = 255)
-    private String email;
-
     @Column(unique = true, length = 14)
     private String cpf;
 
