@@ -8,7 +8,7 @@ O projeto visa transformar a prática esportiva numa ferramenta de saúde preven
 
 ## 🚀 Escopo do MVP (Onda 1)
 
-O desenvolvimento inicial está focado nas seguintes funcionalidades prioritárias (Baseado no Modelo Lógico V2):
+O desenvolvimento inicial está focado nas seguintes funcionalidades prioritárias:
 1. **Validação Automatizada de Elegibilidade:** Integração com a API do CadÚnico via CPF/NIS.
 2. **Gestão Cadastral:** Cadastro de usuários titulares e seus dependentes.
 3. **Módulo de Academias Parceiras:** Cadastro de estabelecimentos e listagem de atividades/modalidades físicas disponíveis.
@@ -16,13 +16,95 @@ O desenvolvimento inicial está focado nas seguintes funcionalidades prioritári
 
 ---
 
-## 🛠️ Stack Tecnológica
+## 🏁 Começando
 
-* **Back-end:** Java Spring Boot 3 (API RESTful Segura)
-* **Banco de Dados:** MySQL 8.0 / 8.4 (SGBD Relacional)
-* **Front-end Web (Gestor/Academia):** React.js
-* **Aplicativo Mobile (Cidadão):** React Native
-* **Infraestrutura/Deploy:** Nuvem (AWS / GCP) em conformidade com as diretrizes da LGPD
+Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
+
+### 📋 Pré-requisitos
+
+Para instalar e rodar o projeto, você precisará de:
+
+*   **Java 21**: JDK instalado e configurado.
+*   **MySQL**: Versão 8.0 ou superior.
+*   **Maven**: Para gerenciar dependências e build do backend (ou utilize o `./mvnw` incluso).
+*   **Servidor de arquivos estáticos**: Para rodar o frontend (Python 3, Node.js `serve`, ou similar).
+
+### 🔧 Instalação
+
+Siga o passo a passo para configurar o ambiente:
+
+#### 1. Banco de Dados (MySQL)
+O banco de dados deve ser configurado primeiro para que o backend possa se conectar com sucesso.
+*   **Nome do Banco:** `gympass_db`
+*   **Scripts:** Localizados em `database/scripts/`.
+*   **Execução:**
+    ```bash
+    # Acesse o MySQL e crie o banco
+    mysql -u seu_usuario -p -e "CREATE DATABASE gympass_db;"
+
+    # Execute o script de criação das tabelas (DDL)
+    mysql -u seu_usuario -p gympass_db < database/scripts/ddl_social_pass.sql
+
+    # (Opcional) Popule o banco com dados iniciais (DML)
+    mysql -u seu_usuario -p gympass_db < database/scripts/popula_banco.sql
+    ```
+
+#### 2. Backend (Java Spring Boot)
+A API REST que gerencia a lógica de negócio.
+*   **Configuração:** Verifique e ajuste as credenciais do banco em `backend/src/main/resources/application.properties`.
+*   **Execução:**
+    ```bash
+    cd backend
+    # Garanta permissão de execução para o wrapper do Maven
+    chmod +x mvnw
+    # Inicie a aplicação
+    ./mvnw spring-boot:run
+    ```
+*   **Documentação:** Após iniciar, acesse `http://localhost:8080/swagger-ui.html` para visualizar e testar os endpoints via Swagger UI.
+
+#### 3. Frontend (Web)
+A interface do usuário reside na pasta `/frontend`.
+*   **Execução:** Como o frontend é desacoplado, utilize um servidor de arquivos estáticos.
+    *   **Python:** `cd frontend && python3 -m http.server 3000`
+    *   **Node (serve):** `cd frontend && npx serve`
+*   **Acesso:** Abra `http://localhost:3000` no seu navegador.
+*   **Integração:** O frontend está configurado para se comunicar com o backend em `http://localhost:8080` por padrão (ajustável em `frontend/script.js`).
+
+---
+
+## ⚙️ Executando os testes
+
+Para garantir que tudo esteja funcionando corretamente, execute os testes automatizados.
+
+### 🔩 Analise os testes de integração e unitários
+No diretório `backend`, execute:
+```bash
+./mvnw test
+```
+Estes testes verificam os controladores, serviços e a integração com a camada de persistência.
+
+### ⌨️ Estilo de codificação
+O código segue os padrões recomendados para projetos Spring Boot. Recomenda-se o uso de extensões de Lint e formatadores de código (como o do Google Java Style) na sua IDE.
+
+---
+
+## 📦 Implantação
+Para implantar em um sistema ativo:
+*   Configure as variáveis de ambiente necessárias (`SPRING_DATASOURCE_URL`, etc).
+*   Utilize containers Docker para padronização.
+*   Mantenha a conformidade com a LGPD para dados sensíveis.
+
+---
+
+## 🛠️ Construído com
+
+*   [Spring Boot 3](https://spring.io/projects/spring-boot) - Framework Java para Backend
+*   [Maven](https://maven.apache.org/) - Gerenciador de Dependências
+*   [MySQL](https://www.mysql.com/) - Banco de Dados Relacional
+*   [Spring Data JPA](https://spring.io/projects/spring-data-jpa) - Persistência de Dados
+*   [Spring Security](https://spring.io/projects/spring-security) - Segurança e Criptografia (BCrypt)
+*   [SpringDoc OpenAPI](https://springdoc.org/) - Documentação Swagger
+*   [Lombok](https://projectlombok.org/) - Produtividade e redução de código boilerplate
 
 ---
 
@@ -32,10 +114,26 @@ O desenvolvimento inicial está focado nas seguintes funcionalidades prioritári
 ├── backend/                              # API Java Spring Boot 3
 ├── frontend/                             # Interface Web (HTML/JS/CSS)
 ├── database/                             # Scripts e documentação SQL
-│   ├── docs/
-│   │   └── DOCUMENTACAO_IMPLANTACAO.md   # Dicionário de dados e instruções de infra
-│   ├── scripts/
-│   │   ├── ddl_social_pass.sql           # Script de criação das tabelas
-│   │   └── popula_banco.sql             # Script de carga inicial
+│   ├── docs/                             # Dicionário de dados
+│   └── scripts/                          # Scripts de criação e população
 ├── AGENTS.md                             # Guia de execução e orientações para agentes
 └── README.md                             # Este arquivo explicativo
+```
+
+---
+
+## 🖇️ Colaborando
+
+Por favor, entre em contato para mais informações sobre o processo de envio de pull requests e o código de conduta.
+
+## 📌 Versão
+
+Nós usamos [SemVer](http://semver.org/) para controle de versão.
+
+## 🎁 Expressões de gratidão
+
+*   Conte a outras pessoas sobre este projeto 📢;
+*   Um agradecimento publicamente 🫂;
+*   Ajude a levar saúde para quem mais precisa! 🏊‍♂️
+---
+⌨️ com ❤️ por [Armstrong Lohãns](https://gist.github.com/lohhans) 😊
