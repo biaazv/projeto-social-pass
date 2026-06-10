@@ -26,12 +26,16 @@ O desenvolvimento inicial está focado nas seguintes funcionalidades prioritári
 
 ---
 
-## 📂 Estrutura do Repositório do Banco de Dados
+## 📂 Estrutura do Repositório
 
 ```text
-├── database/
+├── backend/                              # API Java Spring Boot 3
+├── frontend/                             # Interface Web (HTML/JS/CSS)
+├── database/                             # Scripts e documentação SQL
 │   ├── docs/
 │   │   └── DOCUMENTACAO_IMPLANTACAO.md   # Dicionário de dados e instruções de infra
 │   ├── scripts/
-│   │   └── ddl_socialpass.sql            # Script físico de criação das tabelas (V2 - Normalizado)
+│   │   ├── ddl_social_pass.sql           # Script de criação das tabelas
+│   │   └── popula_banco.sql             # Script de carga inicial
+├── AGENTS.md                             # Guia de execução e orientações para agentes
 └── README.md                             # Este arquivo explicativo
