@@ -22,19 +22,44 @@ Essas instruções permitirão que você obtenha uma cópia do projeto em opera�
 
 ### 📋 Pré-requisitos
 
-Para instalar e rodar o projeto, você precisará de:
+Você pode optar por executar o projeto de forma **Nativa** (instalando tudo na sua máquina) ou via **Docker** (recomendado para evitar instalações manuais).
 
+#### Opção 1: Via Docker (Recomendado)
+*   **Docker Desktop** instalado (inclui Docker Compose).
+
+#### Opção 2: Execução Nativa
 *   **Java 21**: JDK instalado e configurado.
 *   **MySQL**: Versão 8.0 ou superior.
 *   **Maven**: Para gerenciar dependências e build do backend (ou utilize o `./mvnw` incluso).
 *   **Servidor de arquivos estáticos**: Para rodar o frontend (Python 3, Node.js `serve`, ou similar).
 
-### 🔧 Instalação
+---
 
-Siga o passo a passo para configurar o ambiente:
+## 🐳 Execução via Docker (Rápida)
+
+Esta é a forma mais simples de rodar o projeto completo sem instalar Java ou MySQL.
+
+1.  Certifique-se de que o Docker está rodando.
+2.  Na raiz do projeto, execute:
+    ```bash
+    docker-compose up --build
+    ```
+3.  O Docker irá:
+    *   Subir um banco MySQL e inicializar as tabelas automaticamente.
+    *   Compilar e rodar o Backend na porta `8080`.
+    *   Servir o Frontend na porta `3000`.
+
+**Acessos:**
+*   Frontend: [http://localhost:3000](http://localhost:3000)
+*   Backend (Swagger): [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+
+---
+
+## 🔧 Instalação Nativa (Manual)
+
+Se preferir não usar Docker, siga os passos abaixo:
 
 #### 1. Banco de Dados (MySQL)
-O banco de dados deve ser configurado primeiro para que o backend possa se conectar com sucesso.
 *   **Nome do Banco:** `gympass_db`
 *   **Scripts:** Localizados em `database/scripts/`.
 *   **Execução:**
@@ -50,7 +75,6 @@ O banco de dados deve ser configurado primeiro para que o backend possa se conec
     ```
 
 #### 2. Backend (Java Spring Boot)
-A API REST que gerencia a lógica de negócio.
 *   **Configuração:** Verifique e ajuste as credenciais do banco em `backend/src/main/resources/application.properties`.
 *   **Execução:**
     ```bash
@@ -60,15 +84,14 @@ A API REST que gerencia a lógica de negócio.
     # Inicie a aplicação
     ./mvnw spring-boot:run
     ```
-*   **Documentação:** Após iniciar, acesse `http://localhost:8080/swagger-ui.html` para visualizar e testar os endpoints via Swagger UI.
 
 #### 3. Frontend (Web)
-A interface do usuário reside na pasta `/frontend`.
-*   **Execução:** Como o frontend é desacoplado, utilize um servidor de arquivos estáticos.
-    *   **Python:** `cd frontend && python3 -m http.server 3000`
-    *   **Node (serve):** `cd frontend && npx serve`
-*   **Acesso:** Abra `http://localhost:3000` no seu navegador.
-*   **Integração:** O frontend está configurado para se comunicar com o backend em `http://localhost:8080` por padrão (ajustável em `frontend/script.js`).
+*   **Execução:** Utilize um servidor de arquivos estáticos na pasta `/frontend`.
+    ```bash
+    cd frontend && python3 -m http.server 3000
+    # OU
+    cd frontend && npx serve -p 3000
+    ```
 
 ---
 
@@ -81,18 +104,16 @@ No diretório `backend`, execute:
 ```bash
 ./mvnw test
 ```
-Estes testes verificam os controladores, serviços e a integração com a camada de persistência.
 
 ### ⌨️ Estilo de codificação
-O código segue os padrões recomendados para projetos Spring Boot. Recomenda-se o uso de extensões de Lint e formatadores de código (como o do Google Java Style) na sua IDE.
+O código segue os padrões recomendados para projetos Spring Boot. Recomenda-se o uso de extensões de Lint na sua IDE.
 
 ---
 
 ## 📦 Implantação
 Para implantar em um sistema ativo:
-*   Configure as variáveis de ambiente necessárias (`SPRING_DATASOURCE_URL`, etc).
-*   Utilize containers Docker para padronização.
-*   Mantenha a conformidade com a LGPD para dados sensíveis.
+*   Configure as variáveis de ambiente necessárias (`DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`).
+*   Utilize o `docker-compose.yml` como base para sua orquestração.
 
 ---
 
@@ -101,6 +122,7 @@ Para implantar em um sistema ativo:
 *   [Spring Boot 3](https://spring.io/projects/spring-boot) - Framework Java para Backend
 *   [Maven](https://maven.apache.org/) - Gerenciador de Dependências
 *   [MySQL](https://www.mysql.com/) - Banco de Dados Relacional
+*   [Nginx](https://www.nginx.com/) - Servidor Web para o Frontend (via Docker)
 *   [Spring Data JPA](https://spring.io/projects/spring-data-jpa) - Persistência de Dados
 *   [Spring Security](https://spring.io/projects/spring-security) - Segurança e Criptografia (BCrypt)
 *   [SpringDoc OpenAPI](https://springdoc.org/) - Documentação Swagger
@@ -117,6 +139,7 @@ Para implantar em um sistema ativo:
 │   ├── docs/                             # Dicionário de dados
 │   └── scripts/                          # Scripts de criação e população
 ├── AGENTS.md                             # Guia de execução e orientações para agentes
+├── docker-compose.yml                    # Orquestração de containers
 └── README.md                             # Este arquivo explicativo
 ```
 
