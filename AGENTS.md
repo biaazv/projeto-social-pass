@@ -1,54 +1,54 @@
-# 🤖 Instruções para Agentes (Jules) - Projeto SocialPass
+# SocialPass - Guia de Execução e Orientações
 
-Este documento serve como a "Fonte da Verdade" para o desenvolvimento e manutenção do projeto SocialPass. Consulte este arquivo antes de realizar qualquer alteração para garantir consistência e evitar retrabalhos.
+Este guia fornece instruções sobre como configurar e executar o projeto SocialPass de forma integrada.
 
-## 📂 Estrutura do Projeto
+## 🚀 Como Executar o Projeto
 
-O projeto é um monorepo organizado em duas frentes principais:
+O projeto está dividido em três partes principais: Banco de Dados, Backend e Frontend.
 
-- **`/backend`**: Aplicação Spring Boot (Java).
-  - Gerenciado via Maven (`pom.xml`).
-  - Utiliza o Maven Wrapper (`./mvnw`). Sempre dê permissão de execução (`chmod +x mvnw`) antes de rodar.
-- **`/database`**: Artefatos SQL e documentação de dados.
-  - O script principal é `database/scripts/ddl_social_pass.sql`.
+### 1. Banco de Dados (MySQL)
+O banco de dados deve ser configurado primeiro.
+- **Nome do Banco:** `gympass_db`
+- **Scripts:** Localizados em `database/scripts/`.
+- **Execução:**
+  1. Execute o script de criação: `mysql -u seu_usuario -p < database/scripts/ddl_social_pass.sql`
+  2. (Opcional) Popule o banco: `mysql -u seu_usuario -p < database/scripts/popula_banco.sql`
 
-## 🛠️ Stack Tecnológica
+### 2. Backend (Java Spring Boot)
+O backend é uma API REST que se conecta ao MySQL.
+- **Configuração:** Verifique as credenciais do banco em `backend/src/main/resources/application.properties`.
+- **Execução:**
+  1. Navegue até a pasta: `cd backend`
+  2. Execute com Maven: `./mvnw spring-boot:run`
+- **API Docs:** Após iniciar, acesse `http://localhost:8080/swagger-ui.html`.
 
-- **Linguagem**: Java 21.
-- **Framework**: Spring Boot 3.4.0.
-- **Segurança**: Spring Security 6+.
-  - **IMPORTANTE**: Senhas **DEVEM** ser criptografadas usando `BCryptPasswordEncoder`. Nunca armazene ou manipule senhas em texto plano.
-- **Banco de Dados**: MySQL 8+.
-  - Nome padrão do banco: `socialpass_v2_db`.
-- **API**: RESTful com documentação OpenAPI/Swagger (SpringDoc).
+### 3. Frontend (Web)
+O frontend é composto por arquivos estáticos e agora reside na pasta raiz `/frontend`.
+- **Execução:** Como o frontend é desacoplado, você pode serví-lo usando qualquer servidor de arquivos estáticos.
+  - Exemplo com Python: `cd frontend && python3 -m http.server 3000`
+  - Exemplo com Node (serve): `cd frontend && npx serve`
+  - Ou simplesmente abrindo o arquivo `index.html` no navegador (embora um servidor seja recomendado).
+- **Integração:** O frontend está configurado para se comunicar com o backend em `http://localhost:8080` por padrão (definido em `frontend/script.js`). Caso o backend rode em outra porta ou host, ajuste a variável `API_BASE_URL` no script.
 
-## 🗄️ Sincronização Backend x Banco de Dados
+---
 
-As entidades Java e as tabelas SQL estão sincronizadas. Ao alterar uma, a outra **deve** ser atualizada correspondentemente:
+## 🤖 Guia Jules (Agent Instructions)
 
-| Entidade Java | Tabela SQL | Campo Chave (Java -> SQL) |
-| :--- | :--- | :--- |
-| `Usuario` | `Usuario` | `nomeCompleto` -> `nome_completo`, `statusConta` -> `status_conta` |
-| `Dependente` | `Dependente` | `idDependente` -> `id_dependente` |
+Olá, Jules! Aqui estão as diretrizes para suas futuras atuações neste repositório:
 
-## ⚙️ Configurações e Variáveis de Ambiente
+### Estrutura do Projeto
+- `/backend`: API Spring Boot. Siga os padrões de pacotes (controller, service, repository, entity).
+- `/frontend`: Interface do usuário. Mantenha os arquivos organizados e evite colocar lógica de negócio complexa aqui; utilize a API.
+- `/database`: Scripts SQL. Sempre que alterar uma entidade JPA, lembre-se de atualizar o `ddl_social_pass.sql`.
 
-O arquivo `backend/src/main/resources/application.properties` utiliza variáveis de ambiente com fallbacks para desenvolvimento local:
+### Convenções
+- **Banco de Dados:** Utilize sempre o nome `gympass_db`.
+- **Entidades:** Mapeie corretamente os campos CamelCase do Java para snake_case no banco de dados quando necessário, ou garanta que os nomes coincidam.
+- **Segurança:** Senhas devem ser tratadas com `BCryptPasswordEncoder`. O campo `senha` na entidade `Usuario` está marcado como `@JsonProperty(access = Access.WRITE_ONLY)`.
+- **CORS:** Já existe uma configuração global em `backend/src/main/java/com/fullstack/gympass/config/CorsConfig.java`.
 
-- `SPRING_DATASOURCE_URL`: `jdbc:mysql://localhost:3306/socialpass_v2_db`
-- `SPRING_DATASOURCE_USERNAME`: `root`
-- `SPRING_DATASOURCE_PASSWORD`: `1234`
-
-**NÃO remova os fallbacks** a menos que solicitado expressamente, para garantir que o projeto continue rodando localmente sem configurações complexas.
-
-## 🚀 Comandos Rápidos
-
-- **Compilar e Testar**: `cd backend && ./mvnw clean compile test`
-- **Rodar Local**: `cd backend && ./mvnw spring-boot:run`
-- **Verificar Frontend Estático**: `backend/src/main/resources/static/social-pass/index.html`
-
-## 📝 Diretrizes de Desenvolvimento
-
-1. **Naming**: O projeto foi migrado de "Gympass" para "SocialPass". Use "socialpass" em novos pacotes, artefatos ou variáveis.
-2. **Refatoração**: Evite reverter mudanças de segurança (como a inclusão do Spring Security) ou downgrade de versões do Spring Boot sem uma justificativa técnica clara.
-3. **Frontend**: O frontend estático atual é simples e reside em `src/main/resources/static`. Alterações visuais devem ser validadas via Playwright quando possível.
+### Fluxo de Trabalho
+1. Verifique as mudanças nas entidades Java.
+2. Sincronize os scripts SQL em `database/scripts/`.
+3. Verifique se o Frontend precisa de novos campos ou endpoints.
+4. Teste a integração entre as camadas.

@@ -257,15 +257,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     var erroTexto = 'Erro ao cadastrar usuário.';
                     try {
                         var erroBody = await response.json();
-                        if (erroBody && erroBody.erro) {
-                            erroTexto = erroBody.erro;
+                        // Spring Boot Default Error or Custom Error
+                        erroTexto = erroBody.message || erroBody.erro || erroBody.detail || erroTexto;
+
+                        if (erroBody.errors && Array.isArray(erroBody.errors)) {
+                            erroTexto = erroBody.errors[0].defaultMessage || erroTexto;
                         }
                     } catch (err) {
                         try {
-                            erroTexto = await response.text() || erroTexto;
-                        } catch (textoErr) {
-                            // Mantem mensagem padrao quando o corpo nao vem em texto.
-                        }
+                            var text = await response.text();
+                            if (text) erroTexto = text;
+                        } catch (textoErr) {}
                     }
                     mostrarMensagem(mensagem, erroTexto, 'error');
                     mostrarToast(erroTexto, 'error');
