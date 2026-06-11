@@ -1,13 +1,13 @@
 -- COMANDO PARA EXECUTAR NO TERMINAL:
 -- mysql -u root -p < ddl_social_pass.sql
 -- -----------------------------------------------------
--- Criação do Banco de Dados - SocialPass (Baseado na Imagem)
+-- Criação do Banco de Dados - SocialPass
 -- -----------------------------------------------------
 CREATE DATABASE IF NOT EXISTS gympass_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE gympass_db;
 
--- 1. Tabela: Usuario
-CREATE TABLE IF NOT EXISTS Usuario (
+-- 1. Tabela: usuario
+CREATE TABLE IF NOT EXISTS usuario (
     id_usuario INT AUTO_INCREMENT,
     nome_completo VARCHAR(255) NOT NULL,
     nome_usuario VARCHAR(50) NOT NULL,
@@ -25,8 +25,8 @@ CREATE TABLE IF NOT EXISTS Usuario (
     CONSTRAINT uq_usuario_nome_usuario UNIQUE (nome_usuario)
 ) ENGINE=InnoDB;
 
--- 2. Tabela: Dependentes (Nome mapeado na imagem como "Dependente")
-CREATE TABLE IF NOT EXISTS Dependente (
+-- 2. Tabela: dependente
+CREATE TABLE IF NOT EXISTS dependente (
     id_dependente INT AUTO_INCREMENT,
     id_usuario INT NOT NULL,
     nome VARCHAR(255) NOT NULL,
@@ -37,12 +37,12 @@ CREATE TABLE IF NOT EXISTS Dependente (
     CONSTRAINT pk_dependente PRIMARY KEY (id_dependente),
     CONSTRAINT uq_dependente_cpf UNIQUE (cpf),
     CONSTRAINT fk_dependente_usuario
-        FOREIGN KEY (id_usuario) REFERENCES Usuario (id_usuario)
+        FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario)
         ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
--- 3. Tabela: Academia
-CREATE TABLE IF NOT EXISTS Academia (
+-- 3. Tabela: academia
+CREATE TABLE IF NOT EXISTS academia (
     id_academia INT AUTO_INCREMENT,
     nome VARCHAR(255) NOT NULL,
     endereco VARCHAR(255),
@@ -54,8 +54,8 @@ CREATE TABLE IF NOT EXISTS Academia (
     CONSTRAINT pk_academia PRIMARY KEY (id_academia)
 ) ENGINE=InnoDB;
 
--- 4. Tabela: Cad_Unico
-CREATE TABLE IF NOT EXISTS Cad_Unico (
+-- 4. Tabela: cad_unico
+CREATE TABLE IF NOT EXISTS cad_unico (
     id_cadunico INT AUTO_INCREMENT,
     id_usuario INT NOT NULL,
     nis VARCHAR(20) NOT NULL,
@@ -65,12 +65,12 @@ CREATE TABLE IF NOT EXISTS Cad_Unico (
     CONSTRAINT pk_cad_unico PRIMARY KEY (id_cadunico),
     CONSTRAINT uq_cad_unico_nis UNIQUE (nis),
     CONSTRAINT fk_cad_unico_usuario
-        FOREIGN KEY (id_usuario) REFERENCES Usuario (id_usuario)
+        FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario)
         ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
--- 5. Tabela: Validacao_Cad_Unico
-CREATE TABLE IF NOT EXISTS Validacao_Cad_Unico (
+-- 5. Tabela: validacao_cad_unico
+CREATE TABLE IF NOT EXISTS validacao_cad_unico (
     id_validacao INT AUTO_INCREMENT,
     id_cadunico INT NOT NULL,
     data_consulta DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -79,12 +79,12 @@ CREATE TABLE IF NOT EXISTS Validacao_Cad_Unico (
     orgao_responsavel VARCHAR(100),
     CONSTRAINT pk_validacao_cad_unico PRIMARY KEY (id_validacao),
     CONSTRAINT fk_validacao_cad_unico_cad
-        FOREIGN KEY (id_cadunico) REFERENCES Cad_Unico (id_cadunico)
+        FOREIGN KEY (id_cadunico) REFERENCES cad_unico (id_cadunico)
         ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
--- 6. Tabela: Atividade
-CREATE TABLE IF NOT EXISTS Atividade (
+-- 6. Tabela: atividade
+CREATE TABLE IF NOT EXISTS atividade (
     id_atividade INT AUTO_INCREMENT,
     id_academia INT NOT NULL,
     nome VARCHAR(255) NOT NULL,
@@ -95,12 +95,12 @@ CREATE TABLE IF NOT EXISTS Atividade (
     status VARCHAR(50),
     CONSTRAINT pk_atividade PRIMARY KEY (id_atividade),
     CONSTRAINT fk_atividade_academia
-        FOREIGN KEY (id_academia) REFERENCES Academia (id_academia)
+        FOREIGN KEY (id_academia) REFERENCES academia (id_academia)
         ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
--- 7. Tabela: Agendamento
-CREATE TABLE IF NOT EXISTS Agendamento (
+-- 7. Tabela: agendamento
+CREATE TABLE IF NOT EXISTS agendamento (
     id_agendamento INT AUTO_INCREMENT,
     id_usuario INT NOT NULL,
     id_atividade INT NOT NULL,
@@ -111,18 +111,18 @@ CREATE TABLE IF NOT EXISTS Agendamento (
     data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_agendamento PRIMARY KEY (id_agendamento),
     CONSTRAINT fk_agendamento_usuario
-        FOREIGN KEY (id_usuario) REFERENCES Usuario (id_usuario)
+        FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario)
         ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT fk_agendamento_atividade
-        FOREIGN KEY (id_atividade) REFERENCES Atividade (id_atividade)
+        FOREIGN KEY (id_atividade) REFERENCES atividade (id_atividade)
         ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT fk_agendamento_academia
-        FOREIGN KEY (id_academia) REFERENCES Academia (id_academia)
+        FOREIGN KEY (id_academia) REFERENCES academia (id_academia)
         ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
--- 8. Tabela: Checkin
-CREATE TABLE IF NOT EXISTS Checkin (
+-- 8. Tabela: checkin
+CREATE TABLE IF NOT EXISTS checkin (
     id_checkin INT AUTO_INCREMENT,
     id_usuario INT NOT NULL,
     id_academia INT NOT NULL,
@@ -132,18 +132,18 @@ CREATE TABLE IF NOT EXISTS Checkin (
     status VARCHAR(50),
     CONSTRAINT pk_checkin PRIMARY KEY (id_checkin),
     CONSTRAINT fk_checkin_usuario
-        FOREIGN KEY (id_usuario) REFERENCES Usuario (id_usuario)
+        FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario)
         ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT fk_checkin_academia
-        FOREIGN KEY (id_academia) REFERENCES Academia (id_academia)
+        FOREIGN KEY (id_academia) REFERENCES academia (id_academia)
         ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT fk_checkin_agendamento
-        FOREIGN KEY (id_agendamento) REFERENCES Agendamento (id_agendamento)
+        FOREIGN KEY (id_agendamento) REFERENCES agendamento (id_agendamento)
         ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
 -- -----------------------------------------------------
--- Índices Otimizadores para Coleção de Métricas e Geolocalização
+-- Índices Otimizadores
 -- -----------------------------------------------------
-CREATE INDEX idx_academia_geo ON Academia (latitude, longitude);
-CREATE INDEX idx_checkin_data ON Checkin (data_hora);
+CREATE INDEX idx_academia_geo ON academia (latitude, longitude);
+CREATE INDEX idx_checkin_data ON checkin (data_hora);
