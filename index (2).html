@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Pass - Cadastro de Academia</title>
+  <style>
+    :root {
+      --azul: #14457a;
+      --azul-escuro: #0f3460;
+      --fundo: #dbe7f3;
+      --card: #ffffff;
+      --texto: #1f2937;
+      --texto-suave: #6b7280;
+      --borda: #d1d9e6;
+      --erro: #dc2626;
+      --sucesso: #166534;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--fundo);
+      color: var(--texto);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* Cabecalho */
+    .site-header {
+      background: var(--azul);
+      color: #fff;
+    }
+
+    .header-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-rio {
+      height: 44px;
+      width: auto;
+    }
+
+    .divider {
+      width: 1px;
+      height: 34px;
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .header-titles {
+      display: flex;
+      flex-direction: column;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.04em;
+    }
+
+    /* Container / Card */
+    .container {
+      max-width: 620px;
+      margin: 32px auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 6px 24px rgba(15, 52, 96, 0.14);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card-head {
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .logo-social-pass {
+      height: 36px;
+      width: 36px;
+      object-fit: contain;
+    }
+
+    .brand h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--azul);
+    }
+
+    .subtitulo {
+      color: var(--texto-suave);
+      font-size: 14px;
+      margin-top: 2px;
+    }
+
+    /* Campos */
+    .linha {
+      display: flex;
+      gap: 16px;
+    }
+
+    .linha .campo {
+      flex: 1;
+    }
+
+    .campo {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .campo label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--azul);
+    }
+
+    .campo input,
+    .campo select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--borda);
+      border-radius: 8px;
+      font-size: 14px;
+      background: #fff;
+      color: var(--texto);
+    }
+
+    .campo input:focus,
+    .campo select:focus {
+      outline: none;
+      border-color: var(--azul);
+      box-shadow: 0 0 0 3px rgba(20, 69, 122, 0.15);
+    }
+
+    .campo input.invalido,
+    .campo select.invalido {
+      border-color: var(--erro);
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+    }
+
+    .campo small {
+      font-size: 12px;
+      color: var(--texto-suave);
+    }
+
+    /* Checkboxes (Organizado em 3 Colunas) */
+    .checkboxes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 4px 0;
+    }
+
+    .checkboxes label,
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: normal;
+      color: var(--texto);
+      cursor: pointer;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 16px;
+      padding: 10px 0;
+    }
+
+    /* Botao */
+    .btn-cadastrar {
+      margin-top: 8px;
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 8px;
+      background: var(--azul-escuro);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-cadastrar:hover {
+      background: var(--azul);
+    }
+
+    /* Mensagem */
+    .mensagem {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 8px;
+    }
+
+    .mensagem.ok {
+      background: #dcfce7;
+      color: var(--sucesso);
+    }
+
+    .mensagem.erro {
+      background: #fee2e2;
+      color: var(--erro);
+    }
+
+    @media (max-width: 560px) {
+      .linha {
+        flex-direction: column;
+        gap: 16px;
+      }
+      .checkboxes {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 400px) {
+      .checkboxes {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-rio-M82t1NqNfZ5sGQHjTlDRHWctRK85Sl.png"
+        alt="Logo Prefeitura do Rio" class="logo-rio" />
+      <span class="divider"></span>
+      <div class="header-titles">
+        <span>ASSISTENCIA</span>
+        <span>SOCIAL</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <form id="form-academia" class="card" novalidate>
+      <div class="card-head">
+        <div class="brand">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-social-pass-HSwjsdkJR24ubq4xrUQgU4Dk7zoLKq.png"
+            alt="Logo Social Pass" class="logo-social-pass" />
+          <h1>Social Pass</h1>
+        </div>
+        <p class="subtitulo">Cadastro de Academia</p>
+      </div>
+
+      <div class="campo">
+        <label for="nome">Nome da Academia</label>
+        <input type="text" id="nome" placeholder="Ex: Academia Popular Flamengo" required />
+        <small>Nome oficial da academia parceira.</small>
+      </div>
+
+      <div class="linha">
+        <div class="campo">
+          <label for="endereco">Endereço</label>
+          <input type="text" id="endereco" placeholder="Rua, número" required />
+        </div>
+        <div class="campo">
+          <label for="bairro">Bairro</label>
+          <input type="text" id="bairro" placeholder="Ex: Tijuca" required />
+        </div>
+      </div>
+
+      <div class="linha">
+        <div class="campo">
+          <label for="cep">CEP</label>
+          <input type="text" id="cep" placeholder="XXXXX-XXX" maxlength="9" inputmode="numeric" />
+        </div>
+        <div class="campo">
+          <label for="cnpj">CNPJ</label>
+          <input type="text" id="cnpj" placeholder="XX.XXX.XXX/XXXX-XX" maxlength="18" inputmode="numeric" />
+        </div>
+      </div>
+
+      <div class="linha">
+        <div class="campo">
+          <label for="telefone">Telefone</label>
+          <input type="text" id="telefone" placeholder="(21) 99999-9999" required />
+        </div>
+        <div class="campo">
+          <label for="horario">Horário de Funcionamento</label>
+          <input type="text" id="horario" placeholder="Seg a Sex, 6h as 22h" required />
+        </div>
+      </div>
+
+      <div class="campo">
+        <label>Tipos de Atividade</label>
+        <div class="checkboxes">
+          <label><input type="checkbox" name="tipo" value="Musculacao"> Musculação</label>
+          <label><input type="checkbox" name="tipo" value="Funcional"> Funcional</label>
+          <label><input type="checkbox" name="tipo" value="Ginastica"> Ginástica</label>
+          <label><input type="checkbox" name="tipo" value="Natacao"> Natação</label>
+          <label><input type="checkbox" name="tipo" value="Crossfit"> Crossfit</label>
+          <label><input type="checkbox" name="tipo" value="Pilates"> Pilates</label>
+        </div>
+      </div>
+
+      <div class="linha">
+        <div class="campo">
+          <label>Possui Vestiário?</label>
+          <div class="radio-group">
+            <label><input type="radio" name="vestiario" value="S"> Sim</label>
+            <label><input type="radio" name="vestiario" value="N"> Não</label>
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="status">Status</label>
+          <select id="status" required>
+            <option value="">Selecione</option>
+            <option value="ATIVA">Ativa</option>
+            <option value="INATIVA">Inativa</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-cadastrar">
+        Cadastrar Academia
+      </button>
+
+      <p id="mensagem" class="mensagem" hidden></p>
+    </form>
+  </main>
+
+  <script>
+    var form = document.getElementById("form-academia");
+    var mensagem = document.getElementById("mensagem");
+
+    var obrigatorios = [
+      { id: "nome", nome: "Nome da Academia", tipo: "texto" },
+      { id: "endereco", nome: "Endereço", tipo: "texto" },
+      { id: "bairro", nome: "Bairro", tipo: "texto" },
+      { id: "telefone", nome: "Telefone", tipo: "texto" },
+      { id: "horario", nome: "Horário de Funcionamento", tipo: "texto" },
+      { id: "tipo", nome: "Tipo de Atividade", tipo: "checkbox" },
+      { id: "vestiario", nome: "Possui Vestiário", tipo: "radio" },
+      { id: "status", nome: "Status", tipo: "select" }
+    ];
+
+    form.addEventListener("submit", function (evento) {
+      evento.preventDefault();
+
+      var faltando = [];
+      var dadosValidos = true;
+
+      for (var i = 0; i < obrigatorios.length; i++) {
+        var campoConfig = obrigatorios[i];
+        
+        if (campoConfig.tipo === "texto" || campoConfig.tipo === "select") {
+          var campo = document.getElementById(campoConfig.id);
+          var valor = campo.value.trim();
+          
+          if (valor === "") {
+            campo.classList.add("invalido");
+            faltando.push(campoConfig.nome);
+            dadosValidos = false;
+          } else {
+            campo.classList.remove("invalido");
+          }
+        } 
+        else if (campoConfig.tipo === "checkbox") {
+          var marcados = document.querySelectorAll('input[name="tipo"]:checked');
+          if (marcados.length === 0) {
+            faltando.push(campoConfig.nome);
+            dadosValidos = false;
+          }
+        } 
+        else if (campoConfig.tipo === "radio") {
+          var marcado = document.querySelector('input[name="vestiario"]:checked');
+          if (!marcado) {
+            faltando.push(campoConfig.nome);
+            dadosValidos = false;
+          }
+        }
+      }
+
+      if (!dadosValidos) {
+        mostrarMensagem("Preencha os campos obrigatórios: " + faltando.join(", "), "erro");
+        return;
+      }
+
+      var atividadesSelecionadas = [];
+      var checkboxesAtividades = document.querySelectorAll('input[name="tipo"]:checked');
+      checkboxesAtividades.forEach(function(cb) {
+        atividadesSelecionadas.push(cb.value);
+      });
+
+      var vestiarioSelecionado = document.querySelector('input[name="vestiario"]:checked').value;
+
+      var academia = {
+        nome: document.getElementById("nome").value.trim(),
+        endereco: document.getElementById("endereco").value.trim(),
+        bairro: document.getElementById("bairro").value.trim(),
+        cep: document.getElementById("cep").value.trim(),
+        cnpj: document.getElementById("cnpj").value.trim(),
+        telefone: document.getElementById("telefone").value.trim(),
+        horario_funcionamento: document.getElementById("horario").value.trim(),
+        possui_vestiario: vestiarioSelecionado,
+        tipo_atividade: atividadesSelecionadas,
+        status: document.getElementById("status").value
+      };
+
+      console.log("Academia cadastrada com sucesso:", academia);
+      mostrarMensagem("Academia cadastrada com sucesso!", "ok");
+      form.reset();
+    });
+
+    function mostrarMensagem(texto, tipo) {
+      mensagem.textContent = texto;
+      mensagem.className = "mensagem " + tipo;
+      mensagem.hidden = false;
+    }
+  </script>
+</body>
+
+</html>
