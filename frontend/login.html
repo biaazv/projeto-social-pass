@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Pass - Acesso ao Sistema</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-logo">
+            <img src="logo-rio.png" alt="Prefeitura do Rio">
+        </div>
+        <div class="header-divider"></div>
+        <div class="header-text">
+            ASSISTÊNCIA<br>SOCIAL
+        </div>
+    </header>
+
+    <main class="main-content">
+        
+        <div class="card" style="max-width: 500px; margin: 0 auto;">
+            
+            <div class="card-header">
+                <div class="card-logo">
+                    <img src="logo-social-pass.png" alt="Social Pass" class="card-logo-icon">
+                    <span class="card-title">Social Pass</span>
+                </div>
+                <p class="card-subtitle">Acesso ao Sistema</p>
+            </div>
+
+            <form id="loginForm" novalidate>
+                <div class="form-grid">
+                    
+                    <div class="form-group span-2">
+                        <label class="form-label">Como deseja acessar?</label>
+                        <div style="display: flex; gap: 20px; margin-top: 10px; padding: 5px 0;">
+                            
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; color: #333333;">
+                                <input type="radio" name="tipoPerfil" value="usuario" checked style="width: 16px; height: 16px; accent-color: #1a4b8c; cursor: pointer;">
+                                Sou Beneficiário
+                            </label>
+
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; color: #333333;">
+                                <input type="radio" name="tipoPerfil" value="academia" style="width: 16px; height: 16px; accent-color: #1a4b8c; cursor: pointer;">
+                                Sou uma Instituição
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group span-2" style="margin-top: 5px;">
+    <label class="form-label" id="labelIdentificacao" for="identificacaoLoginInput">Email</label>
+    <div class="input-wrapper">
+        <span class="input-icon" id="iconeIdentificacao" aria-hidden="true">&#9993;</span>
+        <input type="email" class="form-input" id="identificacaoLoginInput" name="identificacao" placeholder="Digite seu email" required>
+    </div>
+</div>
+
+                    <div class="form-group span-2">
+                        <label class="form-label" for="senhaLoginInput">Senha</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon" aria-hidden="true">&#128274;</span>
+                            <input type="password" class="form-input" id="senhaLoginInput" name="senha" placeholder="Digite sua senha" required>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn-submit" style="margin-top: 25px;">
+                    <span aria-hidden="true">&#128100;</span> Entrar
+                </button>
+
+                <p id="formMessage" class="form-message" aria-live="polite" style="text-align: center;"></p>
+
+                <div style="text-align: center; margin-top: 10px;">
+                    <a href="index.html" style="color: #1a4b8c; text-decoration: none; font-size: 13px; font-weight: 600;">Não tem conta? Cadastre-se aqui.</a>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <footer class="footer">
+        <p class="footer-text">JUNTOS POR UMA CIDADE MAIS ATIVA E SAUDÁVEL.</p>
+    </footer>
+
+    <script src="login.js"></script>
+</body>
+</html>
