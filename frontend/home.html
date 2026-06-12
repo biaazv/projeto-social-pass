@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Pass - Hub</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+    
+    <header class="header">
+        <div class="user-greeting">
+            <div class="user-avatar">
+                <span class="material-symbols-rounded">person</span>
+            </div>
+            <div>
+                <p style="font-size: 13px; opacity: 0.9; margin: 0;">Bem-vindo(a) de volta,</p>
+                <h1 style="font-size: 18px; margin: 0;">Thiago Silva</h1>
+            </div>
+        </div>
+        <a href="login.html" style="color: white; text-decoration: none; display: flex; align-items: center;">
+            <span class="material-symbols-rounded" style="font-size: 26px;">logout</span>
+        </a>
+    </header>
+
+    <main class="main-content">
+        <div style="width: 100%; max-width: 860px;">
+            
+            <div class="hero-card">
+                <div>
+                    <h2 class="hero-title">Hora de treinar?</h2>
+                    <p class="hero-subtitle">Valide sua entrada agora.</p>
+                </div>
+                <button class="btn-checkin" onclick="alert('Abrindo câmera para QR Code...')">
+                    <span class="material-symbols-rounded" style="font-size: 24px;">qr_code_scanner</span> 
+                    Check-in
+                </button>
+            </div>
+
+            <div class="section-header">
+                <h3 class="hub-section-title">Parceiros Próximos</h3>
+                <span style="font-size: 13px; color: #777;">Arraste para o lado &rarr;</span>
+            </div>
+            
+            <div class="gym-carousel">
+                <div class="gym-card large">
+                    <div class="gym-cover large-cover">
+                        <span class="gym-tag">
+                            <span class="material-symbols-rounded icon-sm">fitness_center</span> Musculação • 500m
+                        </span>
+                    </div>
+                    <div class="gym-info">
+                        <h4 class="gym-name">Academia Boa Forma</h4>
+                        <p class="gym-address">Rua Principal, 123 - Bangu</p>
+                        <p class="gym-status status-green">
+                            <span class="material-symbols-rounded icon-sm">check_circle</span> Horário ocioso
+                        </p>
+                        <button class="btn-outline">Ver detalhes</button>
+                    </div>
+                </div>
+
+                <div class="gym-card large">
+                    <div class="gym-cover large-cover">
+                        <span class="gym-tag">
+                            <span class="material-symbols-rounded icon-sm">pool</span> Hidroginástica • 800m
+                        </span>
+                    </div>
+                    <div class="gym-info">
+                        <h4 class="gym-name">Clube Aquático</h4>
+                        <p class="gym-address">Av. das Águas, 45 - Madureira</p>
+                        <p class="gym-status status-orange">
+                            <span class="material-symbols-rounded icon-sm">schedule</span> Turma às 14h
+                        </p>
+                        <button class="btn-outline">Ver detalhes</button>
+                    </div>
+                </div>
+
+                <div class="gym-card large">
+                    <div class="gym-cover large-cover">
+                        <span class="gym-tag">
+                            <span class="material-symbols-rounded icon-sm">sports_martial_arts</span> Muay Thai • 1.2km
+                        </span>
+                    </div>
+                    <div class="gym-info">
+                        <h4 class="gym-name">Centro de Lutas Maré</h4>
+                        <p class="gym-address">Travessa da Paz, 88 - Maré</p>
+                        <p class="gym-status status-green">
+                            <span class="material-symbols-rounded icon-sm">check_circle</span> Turma livre
+                        </p>
+                        <button class="btn-outline">Ver detalhes</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 25px;">
+                <h3 class="hub-section-title">Visualizar no Mapa</h3>
+            </div>
+            
+            <div class="map-box">
+                <div id="mapaAcademias" style="width: 100%; height: 100%;"></div>
+                <div class="map-overlay-badge">
+                    <span class="material-symbols-rounded icon-sm" style="color: white;">location_on</span> 
+                    3 academias encontradas
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="home.html" class="nav-item active">
+            <div class="nav-icon-wrap"><span class="material-symbols-rounded">home</span></div>
+            Início
+        </a>
+        <a href="#" class="nav-item" onclick="alert('Página de Mapa em breve')">
+            <div class="nav-icon-wrap"><span class="material-symbols-rounded">explore</span></div>
+            Explorar
+        </a>
+        <a href="#" class="nav-item" onclick="alert('Página de Perfil em breve')">
+            <div class="nav-icon-wrap"><span class="material-symbols-rounded">person</span></div>
+            Perfil
+        </a>
+    </nav>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
