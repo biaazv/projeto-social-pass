@@ -297,4 +297,90 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // ==========================================
+    // LÓGICA DA TELA DE LOGIN (login.html)
+    // ==========================================
+    
+    var cpfLoginInput = document.getElementById('cpfLoginInput');
+
+    // Reaproveita a máscara de CPF para a tela de login
+    if (cpfLoginInput) {
+        cpfLoginInput.addEventListener('input', function(e) {
+            var value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+            if (value.length > 9) value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+            else if (value.length > 6) value = value.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+            else if (value.length > 3) value = value.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+            e.target.value = value;
+        });
+    }
+
+    var loginForm = document.getElementById('loginForm');
+    var loginMessage = document.getElementById('loginMessage');
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            var formData = new FormData(loginForm);
+            var cpf = limparNaoDigitos(formData.get('cpf'));
+            var senha = formData.get('senha');
+
+            if (!validarCPF(cpf)) {
+                mostrarToast('CPF inválido.', 'error');
+                return;
+            }
+
+            if (!senha) {
+                mostrarToast('Por favor, informe a senha.', 'error');
+                return;
+            }
+
+            // Simulação de Login (Substitua pela chamada Fetch real para sua API)
+            mostrarMensagem(loginMessage, 'Consultando CadÚnico e autenticando...', '');
+            
+            setTimeout(function() {
+                mostrarToast('Login realizado com sucesso!', 'success');
+                // Redireciona para a Home após o login
+                window.location.href = 'home.html';
+            }, 1500);
+        });
+    }
+
+    // ==========================================
+    // LÓGICA DO MAPA (home.html)
+    // ==========================================
+    
+    var mapContainer = document.getElementById('mapaAcademias');
+    
+    if (mapContainer && typeof L !== 'undefined') {
+        // Inicializa o mapa focado no Rio de Janeiro (entre as zonas Norte e Oeste)
+        var mapa = L.map('mapaAcademias', {
+            zoomControl: false // Remove os botões de + e - para ficar mais clean
+        }).setView([-22.8700, -43.3400], 11); 
+
+        // Carrega o visual do mapa (OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '© OpenStreetMap'
+        }).addTo(mapa);
+
+        // Lista de Academias com Coordenadas aproximadas dos bairros
+        var academiasParceiras = [
+            { nome: "Academia Boa Forma", atividade: "Musculação", lat: -22.8790, lng: -43.4630 }, // Bangu
+            { nome: "Clube Aquático", atividade: "Hidroginástica", lat: -22.8740, lng: -43.3360 }, // Madureira
+            { nome: "Centro de Lutas Maré", atividade: "Muay Thai", lat: -22.8590, lng: -43.2430 } // Maré
+        ];
+
+        // Adiciona um marcador azul padrão para cada academia
+        academiasParceiras.forEach(function(academia) {
+            var marker = L.marker([academia.lat, academia.lng]).addTo(mapa);
+            
+            // Adiciona um balão de texto quando clica no marcador
+            marker.bindPopup(
+                '<strong style="color: #1a4b8c;">' + academia.nome + '</strong><br>' + 
+                '<span style="font-size: 12px; color: #666;">' + academia.atividade + '</span>'
+            );
+        });
+    }
 });
