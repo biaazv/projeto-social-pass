@@ -42,17 +42,30 @@ CREATE TABLE IF NOT EXISTS dependente (
 ) ENGINE=InnoDB;
 
 -- 3. Tabela: academia
-CREATE TABLE IF NOT EXISTS academia (
-    id_academia INT AUTO_INCREMENT,
-    nome VARCHAR(255) NOT NULL,
-    endereco VARCHAR(255),
-    bairro VARCHAR(100),
-    latitude DOUBLE NOT NULL,
-    longitude DOUBLE NOT NULL,
-    telefone VARCHAR(50),
-    status VARCHAR(50),
-    CONSTRAINT pk_academia PRIMARY KEY (id_academia)
-) ENGINE=InnoDB;
+CREATE TABLE academia (
+                          id_academia INT AUTO_INCREMENT PRIMARY KEY,
+                          nome VARCHAR(150) NOT NULL,
+                          endereco VARCHAR(255) NOT NULL,
+                          bairro VARCHAR(100) NOT NULL,
+                          cep VARCHAR(8),
+                          cnpj VARCHAR(14) NOT NULL UNIQUE,
+                          telefone VARCHAR(20) NOT NULL,
+                          dias_funcionamento VARCHAR(30) NOT NULL,
+                          horario_abertura TIME NOT NULL,
+                          horario_fechamento TIME NOT NULL,
+                          possui_vestiario BOOLEAN NOT NULL,
+                          status VARCHAR(20) NOT NULL,
+                          data_cadastro DATETIME NOT NULL,
+                          data_atualizacao DATETIME NOT NULL
+);
+
+CREATE TABLE academia_tipo_atividade (
+                                         id_academia INT NOT NULL,
+                                         tipo_atividade VARCHAR(50) NOT NULL,
+                                         CONSTRAINT fk_academia_tipo_atividade
+                                             FOREIGN KEY (id_academia) REFERENCES academia(id_academia)
+                                                 ON DELETE CASCADE
+);;
 
 -- 4. Tabela: cad_unico
 CREATE TABLE IF NOT EXISTS cad_unico (

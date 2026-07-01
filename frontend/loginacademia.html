@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Pass - Login Academia</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="header">
+  <div class="header-logo">
+    <img src="logo-rio.png" alt="Prefeitura do Rio">
+  </div>
+  <div class="header-divider"></div>
+  <div class="header-text">
+    ASSISTÊNCIA<br>SOCIAL
+  </div>
+</header>
+
+<main class="main-content">
+  <div class="card" style="max-width: 450px;">
+    <div class="card-header">
+      <div class="card-logo">
+        <img src="logo-social-pass.png" alt="Social Pass" class="card-logo-icon">
+        <span class="card-title">Social Pass</span>
+      </div>
+      <p class="card-subtitle">Acesso da academia parceira</p>
+    </div>
+
+    <form id="loginAcademiaForm" novalidate>
+      <div class="form-grid" style="grid-template-columns: 1fr;">
+        <div class="form-group">
+          <label class="form-label" for="cnpjLoginAcademiaInput">CNPJ</label>
+          <div class="input-wrapper">
+            <span class="input-icon" aria-hidden="true">&#128196;</span>
+            <input type="text" class="form-input" id="cnpjLoginAcademiaInput" name="cnpj" placeholder="00.000.000/0000-00" maxlength="18" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="senhaLoginAcademiaInput">Senha</label>
+          <div class="input-wrapper">
+            <span class="input-icon" aria-hidden="true">&#128274;</span>
+            <input type="password" class="form-input" id="senhaLoginAcademiaInput" name="senha" placeholder="Digite sua senha" required>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit" style="margin-top: 20px;">
+        <span aria-hidden="true">&#10140;</span> Entrar
+      </button>
+
+      <div style="text-align: center; margin-top: 15px; font-size: 14px;">
+        <a href="cadastroacademia.html" style="color: #1a4b8c; text-decoration: none; font-weight: 600;">
+          Ainda não tem cadastro? Cadastrar academia
+        </a>
+      </div>
+
+      <p id="loginAcademiaMessage" class="form-message" aria-live="polite"></p>
+    </form>
+  </div>
+</main>
+
+<div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+<footer class="footer">
+  <p class="footer-text">JUNTOS POR UMA CIDADE MAIS ATIVA E SAUDÁVEL.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

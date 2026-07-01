@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Pass - Entrar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="header">
+    <div class="header-logo">
+        <img src="logo-rio.png" alt="Prefeitura do Rio">
+    </div>
+    <div class="header-divider"></div>
+    <div class="header-text">
+        ASSISTÊNCIA<br>SOCIAL
+    </div>
+</header>
+
+<main class="main-content">
+    <div class="card" style="max-width: 450px;"> <div class="card-header">
+        <div class="card-logo">
+            <img src="logo-social-pass.png" alt="Social Pass" class="card-logo-icon">
+            <span class="card-title">Social Pass</span>
+        </div>
+        <p class="card-subtitle">Acesse sua conta e valide seu benefício</p>
+    </div>
+
+        <form id="loginForm" novalidate>
+            <div class="form-grid" style="grid-template-columns: 1fr;"> <div class="form-group">
+                <label class="form-label" for="cpfLoginInput">CPF</label>
+                <div class="input-wrapper">
+                    <span class="input-icon" aria-hidden="true">&#128196;</span>
+                    <input type="text" class="form-input" id="cpfLoginInput" name="cpf" placeholder="000.000.000-00" maxlength="14" required>
+                </div>
+            </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="senhaLoginInput">Senha</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon" aria-hidden="true">&#128274;</span>
+                        <input type="password" class="form-input" id="senhaLoginInput" name="senha" placeholder="Digite sua senha" required>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit" style="margin-top: 20px;">
+                <span aria-hidden="true">&#10140;</span> Entrar
+            </button>
+
+            <div style="text-align: center; margin-top: 15px; font-size: 14px;">
+                <a href="cadastrousuario.html" style="color: #1a4b8c; text-decoration: none; font-weight: 600;">Ainda não tem conta? Cadastre-se</a>
+            </div>
+
+            <p id="loginMessage" class="form-message" aria-live="polite"></p>
+        </form>
+    </div>
+</main>
+
+<div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+<footer class="footer">
+    <p class="footer-text">JUNTOS POR UMA CIDADE MAIS ATIVA E SAUDÁVEL.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
