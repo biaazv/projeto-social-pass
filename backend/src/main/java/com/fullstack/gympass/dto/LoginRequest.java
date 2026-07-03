@@ -1,3 +1,3 @@
 package com.fullstack.gympass.dto;
 
-public record LoginRequest(String cpf, String senha) {}
+public record LoginRequest(String email, String senha) {}

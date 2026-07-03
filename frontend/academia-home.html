@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home da Academia</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .academy-home {
+            max-width: 1000px;
+            margin: 24px auto;
+            padding: 0 16px;
+            font-family: Arial, sans-serif;
+        }
+        .academy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            gap: 12px;
+        }
+        .academy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 14px;
+            box-shadow: 0 1px 4px rgba(0,0,0,.06);
+        }
+        .card h3 {
+            margin: 0 0 8px;
+            font-size: 15px;
+            color: #333;
+        }
+        .kpi {
+            font-size: 28px;
+            font-weight: bold;
+            color: #0a6;
+            margin: 0;
+        }
+        .label {
+            font-size: 12px;
+            color: #666;
+        }
+        .academy-details p {
+            margin: 6px 0;
+        }
+        .actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 10px 14px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-primary { background: #1677ff; color: #fff; }
+        .btn-danger { background: #e53935; color: #fff; }
+    </style>
+</head>
+<body>
+<main class="academy-home">
+    <section class="academy-header">
+        <div>
+            <h1 id="academyName">Academia</h1>
+            <p class="label">Painel do administrador da academia</p>
+        </div>
+        <div class="actions">
+            <button class="btn-primary" id="btnRefresh">Atualizar dados</button>
+            <button class="btn-danger" id="btnLogout">Sair</button>
+        </div>
+    </section>
+
+    <section class="academy-grid">
+        <article class="card">
+            <h3>Check-ins hoje</h3>
+            <p class="kpi" id="kpiCheckins">0</p>
+            <p class="label">usuários que fizeram check-in</p>
+        </article>
+        <article class="card">
+            <h3>Usuários ativos no mês</h3>
+            <p class="kpi" id="kpiAtivos">0</p>
+            <p class="label">mockado</p>
+        </article>
+        <article class="card">
+            <h3>Taxa de ocupação (agora)</h3>
+            <p class="kpi" id="kpiOcupacao">0%</p>
+            <p class="label">mockado</p>
+        </article>
+        <article class="card">
+            <h3>Novas matrículas (semana)</h3>
+            <p class="kpi" id="kpiMatriculas">0</p>
+            <p class="label">mockado</p>
+        </article>
+    </section>
+
+    <section class="card academy-details">
+      <h3>Dados da academia</h3>
+      <p><strong>CNPJ:</strong> <span id="academyCnpj">-</span></p>
+      <p><strong>Email:</strong> <span id="academyEmail">-</span></p>
+      <p><strong>Telefone:</strong> <span id="academyPhone">-</span></p>
+      <p><strong>Endereço:</strong> <span id="academyAddress">-</span></p>
+      <p><strong>Bairro:</strong> <span id="academyBairro">-</span></p>
+      <p><strong>CEP:</strong> <span id="academyCep">-</span></p>
+      <p><strong>Dias:</strong> <span id="academyDias">-</span></p>
+      <p><strong>Horário:</strong> <span id="academyHorario">-</span></p>
+      <p><strong>Status:</strong> <span id="academyStatus">-</span></p>
+      <p><strong>Possui vestiário:</strong> <span id="academyVestiario">-</span></p>
+    </section>
+</main>
+
+<script src="academia-home.js"></script>
+</body>
+</html>

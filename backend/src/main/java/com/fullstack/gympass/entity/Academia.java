@@ -5,15 +5,14 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
 
-@Entity
-@Table(name = "academia")
+@Getter
+@Setter
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@SuppressWarnings("JpaDataSourceORMInspection")
+@Entity
+@Table(name = "academia")
 public class Academia {
 
     @Id
@@ -21,26 +20,48 @@ public class Academia {
     @Column(name = "id_academia")
     private Integer idAcademia;
 
-    @Column(nullable = false, length = 150)
-    private String nome;
-
-    @Column(nullable = false, length = 255)
-    private String endereco;
-
-    @Column(nullable = false, length = 100)
+    @Column(name = "bairro", nullable = false, length = 100)
     private String bairro;
 
-    @Column(length = 8)
+    @Column(name = "cep", length = 8)
     private String cep;
 
-    @Column(nullable = false, unique = true, length = 14)
+    @Column(name = "cnpj", nullable = false, length = 14, unique = true)
     private String cnpj;
 
-    @Column(nullable = false, length = 20)
-    private String telefone;
+    @Column(name = "data_atualizacao", nullable = false)
+    private LocalDateTime dataAtualizacao;
+
+    @Column(name = "data_cadastro", nullable = false)
+    private LocalDateTime dataCadastro;
+
+    @Column(name = "endereco", nullable = false, length = 255)
+    private String endereco;
+
+    @Column(name = "horario_funcionamento", nullable = false, length = 120)
+    private String horarioFuncionamento;
+
+    @Column(name = "nome", nullable = false, length = 150)
+    private String nome;
+
+    @Column(name = "possui_vestiario", nullable = false)
+    private Boolean possuiVestiario;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "dias_funcionamento", nullable = false, length = 30)
+    @Column(name = "status", nullable = false)
+    private StatusAcademia status;
+
+    @Column(name = "telefone", nullable = false, length = 20)
+    private String telefone;
+
+    @Column(name = "email", nullable = false, length = 255, unique = true)
+    private String email;
+
+    @Column(name = "senha", nullable = false, length = 255)
+    private String senha;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "dias_funcionamento", nullable = false)
     private DiasFuncionamento diasFuncionamento;
 
     @Column(name = "horario_abertura", nullable = false)
@@ -49,40 +70,40 @@ public class Academia {
     @Column(name = "horario_fechamento", nullable = false)
     private LocalTime horarioFechamento;
 
-    @Column(name = "possui_vestiario", nullable = false)
-    private Boolean possuiVestiario;
-
-    @ElementCollection
-    @CollectionTable(
-            name = "academia_tipo_atividade",
-            joinColumns = @JoinColumn(name = "id_academia")
-    )
-    @Column(name = "tipo_atividade", nullable = false, length = 50)
-    private List<String> tipoAtividade;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
-    private StatusAcademia status;
-
-    @Column(name = "data_cadastro", nullable = false, updatable = false)
-    private LocalDateTime dataCadastro;
-
-    @Column(name = "data_atualizacao", nullable = false)
-    private LocalDateTime dataAtualizacao;
-
     @PrePersist
     public void prePersist() {
         LocalDateTime agora = LocalDateTime.now();
-        this.dataCadastro = agora;
-        this.dataAtualizacao = agora;
+        if (dataCadastro == null) {
+            dataCadastro = agora;
+        }
+        dataAtualizacao = agora;
 
-        if (this.status == null) {
-            this.status = StatusAcademia.ATIVA;
+        if (status == null) {
+            status = StatusAcademia.ATIVA;
+        }
+
+        if (horarioFuncionamento == null || horarioFuncionamento.isBlank()) {
+            horarioFuncionamento = montarHorarioFuncionamento();
         }
     }
 
     @PreUpdate
     public void preUpdate() {
-        this.dataAtualizacao = LocalDateTime.now();
+        dataAtualizacao = LocalDateTime.now();
+        horarioFuncionamento = montarHorarioFuncionamento();
+    }
+
+    public String montarHorarioFuncionamento() {
+        String dias = diasFuncionamento != null ? diasFuncionamento.name() : "";
+        String abertura = horarioAbertura != null ? horarioAbertura.toString() : "";
+        String fechamento = horarioFechamento != null ? horarioFechamento.toString() : "";
+
+        if (!dias.isEmpty() && !abertura.isEmpty() && !fechamento.isEmpty()) {
+            return dias + " " + abertura + "-" + fechamento;
+        }
+        if (!abertura.isEmpty() && !fechamento.isEmpty()) {
+            return abertura + "-" + fechamento;
+        }
+        return "HORARIO_NAO_INFORMADO";
     }
 }

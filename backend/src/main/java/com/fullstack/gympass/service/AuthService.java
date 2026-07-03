@@ -15,22 +15,22 @@ public class AuthService {
     private final UsuarioRepository repository;
 
     public LoginResponse login(LoginRequest request) {
-        if (request.cpf() == null || request.senha() == null) {
-            throw new IllegalArgumentException("CPF e senha são obrigatórios.");
+        if (request == null || request.email() == null || request.senha() == null) {
+            throw new IllegalArgumentException("Email e senha são obrigatórios.");
         }
 
-        String cpfLimpo = request.cpf().replaceAll("\\D", "").trim();
+        String email = request.email().trim().toLowerCase();
         String senha = request.senha().trim();
 
-        if (cpfLimpo.isEmpty() || senha.isEmpty()) {
-            throw new IllegalArgumentException("CPF e senha são obrigatórios.");
+        if (email.isEmpty() || senha.isEmpty()) {
+            throw new IllegalArgumentException("Email e senha são obrigatórios.");
         }
 
-        Usuario usuario = repository.findByCpf(cpfLimpo)
-                .orElseThrow(() -> new IllegalArgumentException("CPF ou senha inválidos."));
+        Usuario usuario = repository.findByEmailIgnoreCase(email)
+                .orElseThrow(() -> new IllegalArgumentException("Email ou senha inválidos."));
 
-        if (!usuario.getSenha().equals(senha)) {
-            throw new IllegalArgumentException("CPF ou senha inválidos.");
+        if (!senha.equals(usuario.getSenha())) {
+            throw new IllegalArgumentException("Email ou senha inválidos.");
         }
 
         if (usuario.getStatusConta() == StatusConta.BLOQUEADO) {

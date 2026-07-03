@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 var academia = await response.json();
                 sessionStorage.setItem('socialpass_academia', JSON.stringify(academia));
-                window.location.href = 'academia-home.html';
+                window.location.href = 'home.html';
             } catch (error) {
                 mostrarMensagem(loginAcademiaMessage, error.message || 'Falha ao conectar com o servidor.', 'error');
             } finally {
@@ -353,113 +353,6 @@ document.addEventListener('DOMContentLoaded', function () {
             container.innerHTML = '<p style="padding: 16px; color: #b02a37;">Não foi possível carregar as academias. Verifique se o backend está rodando.</p>';
             if (badgeTexto) badgeTexto.textContent = 'Indisponível';
         }
-    }
-
-    var formCadastroAcademia = document.getElementById('cadastroAcademiaForm');
-    var mensagemAcademia = document.getElementById('cadastroAcademiaMessage');
-    var botaoAcademiaSubmit = formCadastroAcademia ? formCadastroAcademia.querySelector('.btn-submit') : null;
-
-    if (formCadastroAcademia) {
-        aplicarMascaraCNPJ(document.getElementById('cnpjAcademiaInput'));
-
-        formCadastroAcademia.addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            var cnpj = limparNaoDigitos((document.getElementById('cnpjAcademiaInput') || {}).value);
-            var nome = ((document.getElementById('nomeAcademiaInput') || {}).value || '').trim();
-            var telefone = limparNaoDigitos((document.getElementById('telefoneAcademiaInput') || {}).value);
-            var cep = limparNaoDigitos((document.getElementById('cepAcademiaInput') || {}).value);
-            var endereco = ((document.getElementById('enderecoAcademiaInput') || {}).value || '').trim();
-            var bairro = ((document.getElementById('bairroAcademiaInput') || {}).value || '').trim();
-            var diasFuncionamento = ((document.getElementById('diasFuncionamentoAcademiaInput') || {}).value || '').trim();
-            var horarioAbertura = ((document.getElementById('horarioAberturaAcademiaInput') || {}).value || '').trim();
-            var horarioFechamento = ((document.getElementById('horarioFechamentoAcademiaInput') || {}).value || '').trim();
-            var possuiVestiarioEl = document.getElementById('possuiVestiarioAcademiaInput');
-            var possuiVestiario = !!(possuiVestiarioEl && possuiVestiarioEl.checked);
-            var status = ((document.getElementById('statusAcademiaInput') || {}).value || 'ATIVA').trim();
-
-            if (!nome || nome.length < 3) {
-                mostrarMensagem(mensagemAcademia, 'Informe um nome de academia válido.', 'error');
-                return;
-            }
-            if (cnpj.length !== 14) {
-                mostrarMensagem(mensagemAcademia, 'CNPJ inválido.', 'error');
-                return;
-            }
-            if (!endereco) {
-                mostrarMensagem(mensagemAcademia, 'Informe o endereço.', 'error');
-                return;
-            }
-            if (!bairro) {
-                mostrarMensagem(mensagemAcademia, 'Informe o bairro.', 'error');
-                return;
-            }
-            if (!diasFuncionamento) {
-                mostrarMensagem(mensagemAcademia, 'Selecione os dias de funcionamento.', 'error');
-                return;
-            }
-            if (!horarioAbertura || !horarioFechamento) {
-                mostrarMensagem(mensagemAcademia, 'Informe horário de abertura e fechamento.', 'error');
-                return;
-            }
-
-            var payload = {
-                cnpj: cnpj,
-                nome: nome,
-                telefone: telefone,
-                cep: cep,
-                endereco: endereco,
-                bairro: bairro,
-                diasFuncionamento: diasFuncionamento.toUpperCase(),
-                horarioAbertura: horarioAbertura,
-                horarioFechamento: horarioFechamento,
-                possuiVestiario: possuiVestiario,
-                status: status.toUpperCase()
-            };
-
-            try {
-                if (botaoAcademiaSubmit) botaoAcademiaSubmit.disabled = true;
-                mostrarMensagem(mensagemAcademia, 'Enviando cadastro da academia...', '');
-
-                var response = await fetch(API_BASE_URL + '/api/academias', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    var erroTexto = 'Erro ao cadastrar academia.';
-                    try {
-                        var erroBody = await response.json();
-                        erroTexto = erroBody.message || erroBody.erro || erroBody.detail || erroTexto;
-                    } catch (_) {
-                        try {
-                            var txt = await response.text();
-                            if (txt) erroTexto = txt;
-                        } catch (__) {}
-                    }
-                    mostrarMensagem(mensagemAcademia, erroTexto, 'error');
-                    mostrarToast(erroTexto, 'error');
-                    return;
-                }
-
-                var academiaCriada = await response.json();
-                sessionStorage.setItem('socialpass_academia', JSON.stringify(academiaCriada));
-
-                mostrarMensagem(mensagemAcademia, 'Academia cadastrada com sucesso!', 'success');
-                mostrarToast('Academia cadastrada com sucesso!', 'success');
-
-                setTimeout(function () {
-                    window.location.href = 'academia-home.html';
-                }, 500);
-            } catch (error) {
-                var textoErro = error.message || 'Falha ao conectar com o servidor.';
-                mostrarMensagem(mensagemAcademia, textoErro, 'error');
-                mostrarToast(textoErro, 'error');
-            } finally {
-                if (botaoAcademiaSubmit) botaoAcademiaSubmit.disabled = false;
-            }
-        });
     }
 
     var form = document.getElementById('cadastroForm');

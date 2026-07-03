@@ -81,7 +81,6 @@ public class UsuarioService {
         usuario.setNomeCompleto(usuario.getNomeCompleto().trim());
         usuario.setEmail(normalizarEmail(usuario.getEmail()));
         usuario.setNomeUsuario(usuario.getNomeUsuario().trim());
-        usuario.setSenha(usuario.getSenha().trim());
         usuario.setTelefone(normalizarTelefone(usuario.getTelefone()));
         usuario.setCpf(normalizarCpf(usuario.getCpf()));
     }

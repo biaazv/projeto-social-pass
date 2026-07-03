@@ -55,6 +55,7 @@ CREATE TABLE academia (
                           horario_fechamento TIME NOT NULL,
                           possui_vestiario BOOLEAN NOT NULL,
                           status VARCHAR(20) NOT NULL,
+                          senha VARCHAR(255) NOT NULL,
                           data_cadastro DATETIME NOT NULL,
                           data_atualizacao DATETIME NOT NULL
 );

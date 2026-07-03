@@ -323,18 +323,6 @@
     </div>
 
     <div class="campo">
-      <label for="email">Email da Academia</label>
-      <input type="email" id="email" placeholder="contato@academia.com" required />
-      <small>Será usado para login e comunicações.</small>
-    </div>
-
-    <div class="campo">
-      <label for="senha">Senha para acesso</label>
-      <input type="password" id="senha" placeholder="Mínimo 6 caracteres" required />
-      <small>Você usará esta senha para acessar o painel da academia.</small>
-    </div>
-
-    <div class="campo">
       <label>Horário de Funcionamento</label>
       <div class="horario-box">
         <div class="horario-grid">
@@ -420,11 +408,9 @@
       var cep = document.getElementById("cep");
       var cnpj = document.getElementById("cnpj");
       var telefone = document.getElementById("telefone");
-      var cnpj = document.getElementById("cnpj");
-      var telefone = document.getElementById("telefone");
-      var email = document.getElementById("email");
-      var senha = document.getElementById("senha");
       var diasFuncionamento = document.getElementById("diasFuncionamento");
+      var horarioAbertura = document.getElementById("horarioAbertura");
+      var horarioFechamento = document.getElementById("horarioFechamento");
 
       var faltando = [];
 
@@ -433,8 +419,6 @@
       validarCampoTexto(bairro, "Bairro", faltando);
       validarCampoTexto(cnpj, "CNPJ", faltando);
       validarCampoTexto(telefone, "Telefone", faltando);
-      validarCampoTexto(email, "Email", faltando);
-      validarCampoTexto(senha, "Senha", faltando);
       validarCampoSelect(diasFuncionamento, "Dias de funcionamento", faltando);
       validarCampoTexto(horarioAbertura, "Horário de abertura", faltando);
       validarCampoTexto(horarioFechamento, "Horário de fechamento", faltando);
@@ -472,13 +456,6 @@
         return;
       }
 
-      var emailValor = (email.value || "").trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValor)) {
-        email.classList.add("invalido");
-        mostrarMensagem("Email inválido.", "erro");
-        return;
-      }
-
       var cepLimpo = limparNaoDigitos(cep.value);
       if (cep.value.trim() !== "" && cepLimpo.length !== 8) {
         cep.classList.add("invalido");
@@ -493,12 +470,6 @@
         return;
       }
 
-      if (senha.value.length < 6) {
-        senha.classList.add("invalido");
-        mostrarMensagem("Senha deve ter no mínimo 6 caracteres.", "erro");
-        return;
-      }
-
       var payload = {
         nome: nome.value.trim(),
         endereco: endereco.value.trim(),
@@ -506,13 +477,11 @@
         cep: cepLimpo,
         cnpj: limparNaoDigitos(cnpj.value),
         telefone: telefoneLimpo,
-        email: emailValor,
         diasFuncionamento: diasFuncionamento.value,
         horarioAbertura: horarioAbertura.value,
         horarioFechamento: horarioFechamento.value,
         possuiVestiario: vestiarioSelecionado.value === "S",
-        tipoAtividade: atividadesSelecionadas,
-        senha: senha.value.trim()
+        tipoAtividade: atividadesSelecionadas
       };
 
       try {
