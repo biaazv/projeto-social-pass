@@ -11,7 +11,7 @@ O projeto visa transformar a prática esportiva numa ferramenta de saúde preven
 O desenvolvimento inicial está focado nas seguintes funcionalidades prioritárias:
 1. **Validação Automatizada de Elegibilidade:** Integração com a API do CadÚnico via CPF/NIS.
 2. **Gestão Cadastral:** Cadastro de usuários titulares e seus dependentes.
-3. **Módulo de Academias Parceiras:** Cadastro de estabelecimentos e listagem de atividades/modalidades físicas disponíveis.
+3. **Módulo de Academias Parceiras:** Cadastro, login e listagem de estabelecimentos parceiros.
 4. **Módulo de Agendamentos e Check-in:** Sistema de reserva de vagas por atividade e validação presencial via QR Code.
 
 ---
@@ -120,12 +120,12 @@ Para implantar em um sistema ativo:
 ## 🛠️ Construído com
 
 *   [Spring Boot 3](https://spring.io/projects/spring-boot) - Framework Java para Backend
+*   [Spring Security](https://spring.io/projects/spring-security) - Autenticação e Hashing de Senhas (BCrypt)
 *   [Maven](https://maven.apache.org/) - Gerenciador de Dependências
 *   [MySQL](https://www.mysql.com/) - Banco de Dados Relacional
 *   [Nginx](https://www.nginx.com/) - Servidor Web para o Frontend (via Docker)
 *   [Spring Data JPA](https://spring.io/projects/spring-data-jpa) - Persistência de Dados
-*   [Spring Security](https://spring.io/projects/spring-security) - Segurança e Criptografia (BCrypt)
-*   [SpringDoc OpenAPI](https://springdoc.org/) - Documentação Swagger
+*   [SpringDoc OpenAPI](https://springdoc.org/) - Documentação Swagger (Swagger UI na porta 8080)
 *   [Lombok](https://projectlombok.org/) - Produtividade e redução de código boilerplate
 
 ---
