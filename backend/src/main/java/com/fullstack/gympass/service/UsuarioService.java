@@ -3,6 +3,7 @@ package com.fullstack.gympass.service;
 import com.fullstack.gympass.entity.Usuario;
 import com.fullstack.gympass.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ import java.util.List;
 public class UsuarioService {
 
     private final UsuarioRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
     public List<Usuario> listarTodos() {
         return repository.findAll();
@@ -83,6 +85,9 @@ public class UsuarioService {
         usuario.setNomeUsuario(usuario.getNomeUsuario().trim());
         usuario.setTelefone(normalizarTelefone(usuario.getTelefone()));
         usuario.setCpf(normalizarCpf(usuario.getCpf()));
+        if (usuario.getSenha() != null && !usuario.getSenha().isBlank()) {
+            usuario.setSenha(passwordEncoder.encode(usuario.getSenha().trim()));
+        }
     }
 
     private void validarCamposObrigatorios(String nomeCompleto, String email, String nomeUsuario, String senha, String cpf, LocalDate dataNascimento) {
