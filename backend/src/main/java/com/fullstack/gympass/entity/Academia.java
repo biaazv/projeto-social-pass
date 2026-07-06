@@ -1,5 +1,6 @@
 package com.fullstack.gympass.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -58,6 +59,7 @@ public class Academia {
     private String email;
 
     @Column(name = "senha", nullable = false, length = 255)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
 
     @Enumerated(EnumType.STRING)

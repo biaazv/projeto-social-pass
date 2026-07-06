@@ -1,6 +1,7 @@
 package com.fullstack.gympass.service;
 
 import com.fullstack.gympass.dto.AcademiaLoginRequest;
+import com.fullstack.gympass.dto.AcademiaLoginResponse;
 import com.fullstack.gympass.dto.LoginRequest;
 import com.fullstack.gympass.dto.LoginResponse;
 import com.fullstack.gympass.entity.Academia;
@@ -62,7 +63,7 @@ public class AuthService {
         );
     }
 
-    public Academia loginAcademia(AcademiaLoginRequest request) {
+    public AcademiaLoginResponse loginAcademia(AcademiaLoginRequest request) {
         if (request == null || request.cnpj() == null || request.senha() == null) {
             throw new IllegalArgumentException("CNPJ e senha são obrigatórios.");
         }
@@ -85,6 +86,21 @@ public class AuthService {
             throw new IllegalArgumentException("Academia inativa.");
         }
 
-        return academia;
+        return new AcademiaLoginResponse(
+                academia.getIdAcademia(),
+                academia.getNome(),
+                academia.getCnpj(),
+                academia.getEmail(),
+                academia.getTelefone(),
+                academia.getEndereco(),
+                academia.getBairro(),
+                academia.getCep(),
+                academia.getDiasFuncionamento(),
+                academia.getHorarioAbertura(),
+                academia.getHorarioFechamento(),
+                academia.getHorarioFuncionamento(),
+                academia.getPossuiVestiario(),
+                academia.getStatus()
+        );
     }
 }
