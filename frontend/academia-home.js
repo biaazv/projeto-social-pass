@@ -1,5 +1,5 @@
 (function () {
-    const STORAGE_KEY = "academiaLogada";
+    const STORAGE_KEY = "socialpass_academia";
 
     function formatHorario(acad) {
         if (acad.horarioFuncionamento) return acad.horarioFuncionamento;
@@ -19,7 +19,7 @@
     }
 
     function loadAcademia() {
-        const raw = localStorage.getItem(STORAGE_KEY);
+        const raw = sessionStorage.getItem(STORAGE_KEY);
         if (!raw) return null;
         try {
             return JSON.parse(raw);
@@ -51,7 +51,7 @@
 
     function bindEventos() {
         document.getElementById("btnLogout").addEventListener("click", function () {
-            localStorage.removeItem(STORAGE_KEY);
+            sessionStorage.removeItem(STORAGE_KEY);
             window.location.href = "index.html";
         });
 
