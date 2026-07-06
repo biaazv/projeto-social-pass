@@ -50,9 +50,11 @@ CREATE TABLE academia (
                           cep VARCHAR(8),
                           cnpj VARCHAR(14) NOT NULL UNIQUE,
                           telefone VARCHAR(20) NOT NULL,
+                          email VARCHAR(255) NOT NULL UNIQUE,
                           dias_funcionamento VARCHAR(30) NOT NULL,
                           horario_abertura TIME NOT NULL,
                           horario_fechamento TIME NOT NULL,
+                          horario_funcionamento VARCHAR(120) NOT NULL,
                           possui_vestiario BOOLEAN NOT NULL,
                           status VARCHAR(20) NOT NULL,
                           senha VARCHAR(255) NOT NULL,
@@ -159,5 +161,4 @@ CREATE TABLE IF NOT EXISTS checkin (
 -- -----------------------------------------------------
 -- Índices Otimizadores
 -- -----------------------------------------------------
-CREATE INDEX idx_academia_geo ON academia (latitude, longitude);
 CREATE INDEX idx_checkin_data ON checkin (data_hora);

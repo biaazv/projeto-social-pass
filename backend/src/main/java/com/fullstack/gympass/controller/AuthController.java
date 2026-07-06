@@ -1,7 +1,9 @@
 package com.fullstack.gympass.controller;
 
+import com.fullstack.gympass.dto.AcademiaLoginRequest;
 import com.fullstack.gympass.dto.LoginRequest;
 import com.fullstack.gympass.dto.LoginResponse;
+import com.fullstack.gympass.entity.Academia;
 import com.fullstack.gympass.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,5 +19,10 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
         return ResponseEntity.ok(service.login(request));
+    }
+
+    @PostMapping("/academias/login")
+    public ResponseEntity<Academia> loginAcademia(@RequestBody AcademiaLoginRequest request) {
+        return ResponseEntity.ok(service.loginAcademia(request));
     }
 }

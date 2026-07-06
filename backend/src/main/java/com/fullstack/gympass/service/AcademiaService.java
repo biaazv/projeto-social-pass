@@ -4,6 +4,7 @@ import com.fullstack.gympass.dto.AcademiaRequestDTO;
 import com.fullstack.gympass.entity.Academia;
 import com.fullstack.gympass.entity.StatusAcademia;
 import com.fullstack.gympass.repository.AcademiaRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +13,11 @@ import java.util.List;
 public class AcademiaService {
 
     private final AcademiaRepository academiaRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public AcademiaService(AcademiaRepository academiaRepository) {
+    public AcademiaService(AcademiaRepository academiaRepository, PasswordEncoder passwordEncoder) {
         this.academiaRepository = academiaRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Academia cadastrar(AcademiaRequestDTO dto) {
@@ -36,8 +39,9 @@ public class AcademiaService {
         academia.setHorarioFechamento(dto.getHorarioFechamento());
         academia.setStatus(dto.getStatus() != null ? dto.getStatus() : StatusAcademia.ATIVA);
 
-        // Salva senha em texto plano
-        academia.setSenha(dto.getSenha());
+        if (dto.getSenha() != null && !dto.getSenha().isBlank()) {
+            academia.setSenha(passwordEncoder.encode(dto.getSenha().trim()));
+        }
 
         academia.setHorarioFuncionamento(academia.montarHorarioFuncionamento());
 
