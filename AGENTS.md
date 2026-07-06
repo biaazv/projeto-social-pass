@@ -44,7 +44,7 @@ Olá, Jules! Aqui estão as diretrizes para suas futuras atuações neste reposi
 ### Convenções
 - **Banco de Dados:** Utilize sempre o nome `gympass_db`.
 - **Entidades:** Mapeie corretamente os campos CamelCase do Java para snake_case no banco de dados quando necessário, ou garanta que os nomes coincidam.
-- **Segurança:** Senhas devem ser tratadas com `BCryptPasswordEncoder`. O campo `senha` na entidade `Usuario` está marcado como `@JsonProperty(access = Access.WRITE_ONLY)`.
+- **Segurança:** Senhas devem ser tratadas com `BCryptPasswordEncoder`. O campo `senha` nas entidades `Usuario` e `Academia` está marcado como `@JsonProperty(access = Access.WRITE_ONLY)`.
 - **CORS:** Já existe uma configuração global em `backend/src/main/java/com/fullstack/gympass/config/CorsConfig.java`.
 
 ### Fluxo de Trabalho
