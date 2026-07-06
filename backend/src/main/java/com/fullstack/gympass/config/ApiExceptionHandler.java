@@ -14,7 +14,7 @@ public class ApiExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Map<String, String>> tratarHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(Map.of("erro", "Dados inválidos no corpo da requisição. Verifique a data de nascimento no formato AAAA-MM-DD."));
+                .body(Map.of("erro", "Dados inválidos no corpo da requisição. Verifique os campos enviados."));
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

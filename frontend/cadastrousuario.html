@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Pass - Cadastro de Usuário</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="header">
+    <div class="header-logo">
+        <img src="logo-rio.png" alt="Prefeitura do Rio">
+    </div>
+    <div class="header-divider"></div>
+    <div class="header-text">
+        ASSISTÊNCIA<br>SOCIAL
+    </div>
+</header>
+
+<main class="main-content">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-logo">
+                <img src="logo-social-pass.png" alt="Social Pass" class="card-logo-icon">
+                <span class="card-title">Social Pass</span>
+            </div>
+            <p class="card-subtitle">Cadastro de Usuário</p>
+        </div>
+
+        <form id="cadastroForm" novalidate>
+            <div class="form-grid">
+                <div class="form-group span-2">
+                    <label class="form-label" for="nomeCompletoInput">Nome Completo</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon" aria-hidden="true">&#128100;</span>
+                        <input type="text" class="form-input" id="nomeCompletoInput" name="nomeCompleto" placeholder="Digite seu nome completo" required>
+                    </div>
+                    <small class="field-hint">Use o nome como está no documento.</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="nomeUsuarioInput">Nome de Usuário</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon" aria-hidden="true">&#64;</span>
+                        <input type="text" class="form-input" id="nomeUsuarioInput" name="nomeUsuario" placeholder="Digite seu nome de usuário" required>
+                    </div>
+                    <small class="field-hint">Deve ser único.</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="emailInput">Email</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon" aria-hidden="true">&#9993;</span>
+                        <input type="email" class="form-input" id="emailInput" name="email" placeholder="Digite seu email" required>
+                    </div>
+                    <small class="field-hint">Deve ser válido e único.</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="cpfInput">CPF</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon" aria-hidden="true">&#128196;</span>
+                        <input type="text" class="form-input" id="cpfInput" name="cpf" placeholder="000.000.000-00" maxlength="14" required>
+                    </div>
+                    <small class="field-hint">Somente números válidos e únicos.</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="dataNascimentoInput">Data de Nascimento</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon" aria-hidden="true">&#128197;</span>
+                        <input type="date" class="form-input" id="dataNascimentoInput" name="dataNascimento" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="telefoneInput">Telefone</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon" aria-hidden="true">&#128222;</span>
+                        <input type="text" class="form-input" id="telefoneInput" name="telefone" placeholder="(00) 00000-0000" maxlength="15" required>
+                    </div>
+                </div>
+
+                <div class="form-group span-2">
+                    <label class="form-label" for="senhaInput">Senha</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon" aria-hidden="true">&#128274;</span>
+                        <input type="password" class="form-input" id="senhaInput" name="senha" placeholder="Digite sua senha" required>
+                    </div>
+                    <small class="field-hint">Mínimo 4 caracteres, com 1 letra maiúscula e 1 número.</small>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                <span aria-hidden="true">&#128100;</span> Cadastrar
+            </button>
+
+            <div style="text-align: center; margin-top: 15px; font-size: 14px;">
+                <a href="login.html" style="color: #1a4b8c; text-decoration: none; font-weight: 600;">
+                    Já tem conta? Entrar
+                </a>
+            </div>
+
+            <p id="formMessage" class="form-message" aria-live="polite"></p>
+        </form>
+    </div>
+</main>
+
+<div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+<footer class="footer">
+    <p class="footer-text">JUNTOS POR UMA CIDADE MAIS ATIVA E SAUDÁVEL.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

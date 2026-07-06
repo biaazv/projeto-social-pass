@@ -2,15 +2,13 @@
 FROM eclipse-temurin:21-jdk-jammy AS build
 WORKDIR /app
 
-# Copia o wrapper do maven e o arquivo pom.xml
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
-RUN chmod +x mvnw
-# Baixa as dependências (em cache se o pom.xml não mudar)
-RUN ./mvnw dependency:go-offline
+# Copia o código fonte primeiro para garantir que o mvnw exista
+COPY . .
 
-# Copia o código fonte e realiza o build
-COPY src ./src
+# Garante permissão de execução e converte quebras de linha (caso necessário)
+RUN chmod +x mvnw && sed -i 's/\r$//' mvnw
+
+# Baixa as dependências e faz o build
 RUN ./mvnw clean package -DskipTests
 
 # Estágio de Execução
